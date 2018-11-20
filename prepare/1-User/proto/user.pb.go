@@ -22,10 +22,10 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-//message对应生成代码的struct
+//message 对应生成代码的struct
 //定义客户端请求的数据格式
 type UserRequest struct {
-	//[修饰符] 类型 字段名 = 标识符;
+	// [修饰符] 类型 字段名 = 标识符;
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`

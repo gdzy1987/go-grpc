@@ -6,13 +6,19 @@
 ```
 
 ### 目录结构
+
 ```
+.
+├── client.go           // 调用微服务的客户端
+├── gRPC使用protobuf构建微服务|wuYinIO.pdf
 ├── proto
-│   ├── user.proto		// 定义客户端请求、服务端响应的数据格式
-│   └── user.pb.go		// protoc 为 gRPC 生成的读写数据的函数
-├── server.go			// 实现微服务的服务端
-|-
-└── client.go			// 调用微服务的客户端
+│   ├── user.pb.go      // protoc 为 gRPC 生成的读写数据的函数
+│   └── user.proto      // 定义客户端请求、服务端响应的数据格式
+├── readme.md
+├── server.go           // 实现微服务的服务端
+└── user.json
+
+
 ```
 
 ### 步骤
@@ -443,4 +449,161 @@ var fileDescriptor_116e343673f7ffaf = []byte{
 	0x00, 0x00, 0x00,
 }
 
+```
+### 实现服务端
+
+- 实现流程
+```
+server.go中的 UserInfoService struct 实现 user.pb.go中的  UserInfoServiceServer interface
+
+1. 创建TCP socket监听端口      net.Listen("tcp",port)
+2. 实例化 grpc 服务端          grpc.NewServer()
+3. 在grpc上注册微服务           pb.RegisterUserInfoServiceServer(s, &u)
+4. 启动 grpc 服务端            s.Serve(listener)
+
+```
+
+- 实现代码
+
+```
+package main
+
+import (
+	"context"
+	pb "go-grpc/prepare/1-User/proto"
+	"github.com/mongodb/mongo-go-driver/mongo"
+	"github.com/mongodb/mongo-go-driver/mongo/clientopt"
+	"time"
+	"fmt"
+	"net"
+	"log"
+	"google.golang.org/grpc"
+)
+
+var (
+	client *mongo.Client
+	database *mongo.Database
+	collection *mongo.Collection
+	err error
+	cond *FindByName
+	result *mongo.DocumentResult
+	user *User
+)
+
+type User struct {
+	ID int32 `bson:"id" json:""`
+	Name string `bson:"name" json:"name"`
+	Age int32 `bson:"age" json:"age"`
+	Title []string `bson:"title" json:"title"`
+}
+
+//查询过滤
+type FindByName struct {
+	Name string `bson:"name" json:"name"`
+}
+//定义服务端实现约定的接口
+type UserInfoService struct{}
+
+var u = UserInfoService{}
+
+func (s *UserInfoService) GetUserInfo(ctx context.Context, req *pb.UserRequest) (resp *pb.UserResponse, err error){
+	name := req.Name
+	fmt.Println("收到查询 name:",name)
+
+	//在数据库中查找用户信息
+	//测试数据文件user.json
+	//1,建立连接
+	if client, err = mongo.Connect(context.TODO(),"mongodb://127.0.0.1:27017",clientopt.ConnectTimeout(5*time.Second)); err != nil{
+		fmt.Println(err)
+		return
+	}
+
+	//2,选择数据库data
+	database = client.Database("data")
+
+	//3,选择表user
+	collection = database.Collection("user")
+
+	//4,按照name过滤
+	cond = &FindByName{Name:name}
+
+	//5，查询
+	result = collection.FindOne(context.TODO(),cond)
+
+	if err = result.Decode(&user); err != nil{
+		fmt.Println(err)
+		return
+	}
+
+	//处理返回
+	resp = &pb.UserResponse{
+		Id:user.ID,
+		Name:user.Name,
+		Age:user.Age,
+		Title:user.Title,
+	}
+	err = nil
+	return
+}
+
+func main()  {
+	port := ":2333"
+	listener, err := net.Listen("tcp",port)
+	if err != nil{
+		log.Fatalf("listen error:%v\n",err)
+	}
+
+	fmt.Printf("listen %s\n",port)
+	s := grpc.NewServer()
+
+	//注意第二个参数 UserInfoServiceServer是接口类型的变量,需要取地址传参
+	pb.RegisterUserInfoServiceServer(s,&u)
+	s.Serve(listener)
+}
+
+```
+
+### 实现客户端
+- 实现流程
+```
+1. 创建与 grpc 服务器的连接          grpc.Dial(":2333", grpc.WithInsecure())
+2. 实例化 grpc 客户端               pb.NewUserInfoServiceClient(conn)
+3. 调用接口                        client.GetUserInfo(context.Background(),req)
+```
+- 实现代码
+
+```
+package main
+
+import (
+	"google.golang.org/grpc"
+	"log"
+	pb "go-grpc/prepare/1-User/proto"
+	"context"
+	"fmt"
+)
+
+func main()  {
+	conn, err := grpc.Dial(":2333",grpc.WithInsecure())
+	if err != nil{
+		log.Fatalf("dial error: %v\n",err)
+	}
+	defer conn.Close()
+
+	client := pb.NewUserInfoServiceClient(conn)
+
+	//调用服务
+	req := new(pb.UserRequest)
+	req.Name = "张三"
+
+	resp, err := client.GetUserInfo(context.Background(),req)
+	if err != nil{
+		log.Fatalf("resp error:%v\n",err)
+	}
+
+	fmt.Println("id:",resp.Id)
+	fmt.Println("name:",resp.Name)
+	fmt.Println("age:",resp.Age)
+	fmt.Println("title:",resp.Title)
+}
 ```

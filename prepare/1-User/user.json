@@ -1,0 +1,20 @@
+{
+  "_id" : ObjectId("5bf3caf29af98e3f495b2469"),
+  "id" : NumberInt(10001),
+  "name" : "张三",
+  "age" : NumberInt(20),
+  "title" : [
+    "学生",
+    "小学二班"
+  ]
+}
+{
+  "_id" : ObjectId("5bf3cc009af98e3f495b2477"),
+  "id" : NumberInt(10002),
+  "name" : "李四",
+  "age" : NumberInt(21),
+  "title" : [
+    "大学生",
+    "理科二班"
+  ]
+}

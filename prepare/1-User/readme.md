@@ -16,7 +16,7 @@
 │   └── user.proto      // 定义客户端请求、服务端响应的数据格式
 ├── readme.md
 ├── server.go           // 实现微服务的服务端
-└── user.json
+└── user.json           // 示例所使用的user数据文件
 ```
 
 ### 示例运行步骤

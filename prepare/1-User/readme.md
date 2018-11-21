@@ -17,8 +17,12 @@
 ├── readme.md
 ├── server.go           // 实现微服务的服务端
 └── user.json
+```
 
-
+### 示例运行步骤
+```
+1. go run server.go
+2. go run client.go
 ```
 
 ### 步骤

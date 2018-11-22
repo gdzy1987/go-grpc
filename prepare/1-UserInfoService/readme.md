@@ -10,14 +10,14 @@
 
 ```
 .
-├── client.go           // 调用微服务的客户端
+├── client.go                               // 调用微服务的客户端
 ├── gRPC使用protobuf构建微服务|wuYinIO.pdf
 ├── proto
-│   ├── user.pb.go      // protoc 为 gRPC 生成的读写数据的函数
-│   └── user.proto      // 定义客户端请求、服务端响应的数据格式
+│   ├── user.pb.go                          // protoc 为 gRPC 生成的读写数据的函数
+│   └── user.proto                          // 定义客户端请求、服务端响应的数据格式
 ├── readme.md
-├── server.go           // 实现微服务的服务端
-└── user.json           // 示例所使用的user数据文件
+├── server.go                               // 实现微服务的服务端
+└── user.json                               // 示例所使用的user数据文件
 ```
 
 ### 示例运行步骤

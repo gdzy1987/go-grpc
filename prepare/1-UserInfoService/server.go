@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "go-grpc/prepare/1-User/proto"
+	pb "go-grpc/prepare/1-UserInfoService/proto"
 	"github.com/mongodb/mongo-go-driver/mongo"
 	"github.com/mongodb/mongo-go-driver/mongo/clientopt"
 	"time"

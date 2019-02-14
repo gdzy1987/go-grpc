@@ -71,3 +71,27 @@ There are no insertion points in the plugin.
 Go中支持使用协议缓冲区的gRPC。有关详细信息，请参见该文件底部的说明。
 插件中没有插入点。
 ```
+
+## Using protocol buffers with Go 对go使用协议缓冲区
+```
+Once the software is installed, there are two steps to using it. 
+First you must compile the protocol buffer definitions and then import them, 
+with the support library, into your program.
+To compile the protocol buffer definition, 
+run protoc with the --go_out parameter set to the directory you want to output the Go code to.
+    
+    protoc --go_out=. *.proto
+
+The generated files will be suffixed .pb.go. See the Test code below for an example using such a file.
+
+
+
+一旦安装了软件，使用它有两个步骤。
+    首先，必须编译 protocol buffer 定义，然后使用支持库将它们导入程序。
+    要编译协议缓冲区定义，请将 —go_out 参数设置为要输出Go代码的目录运行protoc。
+
+        protoc——go_out =。* .proto
+
+生成的文件将以.pb.go为后缀。
+有关使用此类文件的示例，请参见下面的测试代码。
+```

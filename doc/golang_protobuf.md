@@ -42,14 +42,16 @@ This software has two parts: a 'protocol compiler plugin' that generates Go sour
 once compiled, can access and manage protocol buffers; 
 and a library that implements run-time support for encoding (marshaling), 
 decoding (unmarshaling), and accessing protocol buffers.
-There is support for gRPC in Go using protocol buffers. See the note at the bottom of this file for details.
+There is support for gRPC in Go using protocol buffers. 
+See the note at the bottom of this file for details.
 There are no insertion points in the plugin.
 
 
 要使用本软件，你必须:
     从https://developers.google.com/protocol-buffers/安装协议缓冲区的标准c++实现
     当然，从https://golang.org/安装Go编译器和工具，
-    详细信息请参见https://golang.org/doc/install，或者，如果您正在使用gccgo，请遵循https://golang.org/doc/install/gccgo的说明
+    详细信息请参见https://golang.org/doc/install，或者，如果您正在使用gccgo，
+    请遵循https://golang.org/doc/install/gccgo的说明
     从存储库中获取代码并安装proto包。
     最简单的方法是运行
         go get -u github.com/golang/protobuf/protoc-gen-go。

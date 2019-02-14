@@ -95,3 +95,7 @@ The generated files will be suffixed .pb.go. See the Test code below for an exam
 生成的文件将以.pb.go为后缀。
 有关使用此类文件的示例，请参见下面的测试代码。
 ```
+## Packages and input paths 包和输入路径
+```
+
+```

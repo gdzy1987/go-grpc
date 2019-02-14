@@ -61,7 +61,7 @@ There are no insertion points in the plugin.
     如果您需要特定版本的  protoc-gen-go (例如，匹配您的原型包版本)，一个选项是
 
         GIT_TAG="v1.2.0" #根据需要进行更改
-        go -get -u github.com/golang/protobuf/protoc-gen-go
+        go get -d -u github.com/golang/protobuf/protoc-gen-go
         git -C "$(go env GOPATH)"/src/github.com/golang/protobuf checkout $GIT_TAG
         go install github.com/golang/protobuf/protoc-gen-go
 

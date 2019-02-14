@@ -35,7 +35,8 @@ To use this software, you must:
     git -C "$(go env GOPATH)"/src/github.com/golang/protobuf checkout $GIT_TAG
     go install github.com/golang/protobuf/protoc-gen-go
 
-This software has two parts: a 'protocol compiler plugin' that generates Go source files that, once compiled, can access and manage protocol buffers; 
+This software has two parts: a 'protocol compiler plugin' that generates Go source files that, 
+once compiled, can access and manage protocol buffers; 
 and a library that implements run-time support for encoding (marshaling), 
 decoding (unmarshaling), and accessing protocol buffers.
 There is support for gRPC in Go using protocol buffers. See the note at the bottom of this file for details.

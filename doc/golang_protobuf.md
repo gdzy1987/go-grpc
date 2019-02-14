@@ -90,7 +90,7 @@ The generated files will be suffixed .pb.go. See the Test code below for an exam
     首先，必须编译 protocol buffer 定义，然后使用支持库将它们导入程序。
     要编译协议缓冲区定义，请将 —go_out 参数设置为要输出Go代码的目录运行protoc。
 
-        protoc——go_out =。* .proto
+        protoc --go_out=. *.proto
 
 生成的文件将以.pb.go为后缀。
 有关使用此类文件的示例，请参见下面的测试代码。

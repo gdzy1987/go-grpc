@@ -21,14 +21,17 @@ For information about protocol buffers themselves, see https://developers.google
 ### Installation 安装
 ```
 To use this software, you must:
-    Install the standard C++ implementation of protocol buffers from https://developers.google.com/protocol-buffers/
+    Install the standard C++ implementation of protocol buffers from 
+    https://developers.google.com/protocol-buffers/
     Of course, install the Go compiler and tools from https://golang.org/ 
-    See https://golang.org/doc/install for details or, if you are using gccgo, follow the instructions at https://golang.org/doc/install/gccgo
+    See https://golang.org/doc/install for details or, if you are using gccgo, 
+    follow the instructions at https://golang.org/doc/install/gccgo
     Grab the code from the repository and install the proto package. 
     The simplest way is to run go get -u github.com/golang/protobuf/protoc-gen-go. 
     The compiler plugin, protoc-gen-go, will be installed in $GOPATH/bin unless $GOBIN is set. 
     It must be in your $PATH for the protocol compiler, protoc, to find it.
-    If you need a particular version of protoc-gen-go (e.g., to match your proto package version), one option is
+    If you need a particular version of protoc-gen-go (e.g., to match your proto package version), 
+    one option is
 
     GIT_TAG="v1.2.0" # change as needed
     go get -d -u github.com/golang/protobuf/protoc-gen-go

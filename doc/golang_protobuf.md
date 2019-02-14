@@ -54,7 +54,9 @@ There are no insertion points in the plugin.
     请遵循https://golang.org/doc/install/gccgo的说明
     从存储库中获取代码并安装proto包。
     最简单的方法是运行
-        go get -u github.com/golang/protobuf/protoc-gen-go。
+    
+        go get -u github.com/golang/protobuf/protoc-gen-go
+        
     除非设置了$GOBIN，否则编译器插件protoc-gen-go将安装在$GOPATH/bin中。
     如果您需要特定版本的  protoc-gen-go (例如，匹配您的原型包版本)，一个选项是
 

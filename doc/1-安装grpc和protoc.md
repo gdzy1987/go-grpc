@@ -1,4 +1,5 @@
-## 安装grpc
+## grpc
+### 按照grpc
 - 使用go get
 ```
 go get google.golang.org/grpc
@@ -13,8 +14,16 @@ git clone https://github.com/google/go-genproto.git $GOPATH/src/google.golang.or
 cd $GOPATH/src/
 go install google.golang.org/grpc
 ```
+## protobuf
+- https://github.com/protocolbuffers/protobuf
+### go protobuf
+- https://github.com/golang/protobuf
 
 ## 安装protoc
+```
+protoc是protobuf文件（.proto）的编译器
+
+```
 - 下载 https://github.com/protocolbuffers/protobuf/releases
 - mac版本 https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protoc-3.6.1-osx-x86_64.zip
 - 解压 在文件夹bin目录里有protoc文件

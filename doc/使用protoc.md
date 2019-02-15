@@ -117,3 +117,55 @@ Parse PROTO_FILES and generate output based on the options given:
 示例: protoc --version
 libprotoc 3.6.1
 ```
+- 查看帮助信息
+```
+-h, --help                  Show this text and exit.
+显示帮助文本并退出
+
+示例: 
+protoc --help
+protoc -h
+```
+- 编码 从文本到二进制
+```
+--encode=MESSAGE_TYPE       Read a text-format message of the given type
+                          from standard input and write it in binary
+                          to standard output.  The message type must
+                          be defined in PROTO_FILES or their imports.
+                              
+从标准输入读取给定类型的文本格式消息，并将其以二进制形式写入标准输出。
+消息类型必须在 proto_files 或其导入中定义。                              
+```
+- 解码 从二进制到文本
+```
+--decode=MESSAGE_TYPE       Read a binary message of the given type from
+                          standard input and write it in text format
+                          to standard output.  The message type must
+                          be defined in PROTO_FILES or their imports.
+从标准输入读取给定类型的二进制消息，并将其以文本格式写入标准输出。
+消息类型必须在proto_files或其导入中定义。                              
+```
+- 
+```
+--decode_raw                Read an arbitrary protocol message from
+                          standard input and write the raw tag/value
+                          pairs in text format to standard output.  No
+                          PROTO_FILES should be given when using this
+                          flag.
+从标准输入读取任意协议消息，并将原始的tag/value对以文本格式写入标准输出。
+使用此标志时不应提供proto_files。                          
+```
+- 
+```
+--descriptor_set_in=FILES   Specifies a delimited list of FILES
+                          each containing a FileDescriptorSet (a
+                          protocol buffer defined in descriptor.proto).
+                          The FileDescriptor for each of the PROTO_FILES
+                          provided will be loaded from these
+                          FileDescriptorSets. If a FileDescriptor
+                          appears multiple times, the first occurrence
+                          will be used.
+指定包含FileDescriptorSet(在description .proto中定义的协议缓冲区)的文件分隔列表。
+提供的每个PROTO_FILES的文件描述符将从这些文件描述符集中加载。
+如果文件描述符出现多次，将使用第一次出现。                          
+```

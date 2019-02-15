@@ -97,5 +97,65 @@ The generated files will be suffixed .pb.go. See the Test code below for an exam
 ```
 ## Packages and input paths 包和输入路径
 ```
+The protocol buffer language has a concept of "packages" which does not correspond well to the Go notion of packages. 
+In generated Go code, each source .proto file is associated with a single Go package. 
+The name and import path for this package is specified with the go_package proto option:
 
+    option go_package = "github.com/golang/protobuf/ptypes/any";
+
+The protocol buffer compiler will attempt to derive a package name and import path if a go_package option is not present, 
+but it is best to always specify one explicitly.
+
+There is a one-to-one relationship between source .proto files and generated .pb.go files, 
+but any number of .pb.go files may be contained in the same Go package.
+
+The output name of a generated file is produced by replacing the .proto suffix with .pb.go (e.g., foo.proto produces foo.pb.go). 
+However, the output directory is selected in one of two ways. 
+Let us say we have inputs/x.proto with a go_package option of github.com/golang/protobuf/p. 
+The corresponding output file may be:
+
+    Relative to the import path:
+
+  protoc --go_out=. inputs/x.proto
+  # writes ./github.com/golang/protobuf/p/x.pb.go
+
+(This can work well with --go_out=$GOPATH.)
+
+    Relative to the input file:
+
+protoc --go_out=paths=source_relative:. inputs/x.proto
+# generate ./inputs/x.pb.go
+
+
+
+协议缓冲区语言有一个“包”的概念，这个概念与Go包的概念不太相符。
+在生成的Go代码中，每个源.proto文件都与单个Go包相关联。
+这个包的名称和导入路径是用go_package proto选项指定的:
+
+    option go_package = "github.com/golang/protobuf/ptypes/any";
+
+如果没有go_package选项，协议缓冲区编译器将尝试派生包名和导入路径，
+但是最好总是显式地指定一个。
+
+在源.proto文件和生成的.pb之间存在一对一的关系,
+但任何数量的 .pb.go文件可能包含在同一个go包中。
+
+生成的文件的输出名称是通过将.proto后缀替换为.pb.go生成的。(例如, foo.proto 生成 foo.pb.go)。
+但是，选择输出目录有两种方法。
+假设我们有input/x.proto的go_package选项为github.com/golang/protobuf/p。
+对应的输出文件可以是:
+
+    相对于导入路径:
+
+    protoc --go_out=. inputs/x.proto
+    #写 ./github.com/golang/protobuf/p/x.pb.go
+
+    (这可以很好地使用   --go_out=$GOPATH.)
+
+    相对于输入文件:
+
+    protoc --go_out=paths=source_relative:. inputs/x.proto
+    #生成 ./inputs/x.pb.go
 ```
+
+## Generated code 生成代码

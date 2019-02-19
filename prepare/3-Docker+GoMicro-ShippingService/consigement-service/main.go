@@ -13,13 +13,13 @@ const (
 	PORT = ":50051"
 )
 
-//仓库接口
+// 仓库接口
 type IRepository interface {
-	Create(consignment *pb.Consignment) (*pb.Consignment, error) //存放新仓库
-	GetAll() []*pb.Consignment 									 //获取仓库中所有货物
+	Create(consignment *pb.Consignment) (*pb.Consignment, error) // 存放新仓库
+	GetAll() []*pb.Consignment 									 // 获取仓库中所有货物
 }
 
-//我们存放多批货物的仓库，实现了IRepository接口
+// 我们存放多批货物的仓库，实现了IRepository接口
 type Repository struct {
 	consignments []*pb.Consignment
 }
@@ -33,17 +33,17 @@ func (repo *Repository) GetAll() []*pb.Consignment  {
 	return repo.consignments
 }
 
-//定义微服务
+// 定义微服务
 type service struct {
 	repo Repository
 }
 
-//service 实现consignment.pb.go中的ShippingServiceServer接口
-//使service作为grpc的服务端
+// service 实现consignment.pb.go中的ShippingServiceServer接口
+// 使service作为grpc的服务端
 
-//托运新的货物
+// 托运新的货物
 func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment) (*pb.Response, error)  {
-	//接收承运的获取
+	// 接收承运的获取
 	consignment, err := s.repo.Create(req)
 	if err != nil{
 		return nil,err
@@ -58,7 +58,7 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment) (*
 	return resp,nil
 }
 
-//获取目前所有托运的货物
+// 获取目前所有托运的货物
 func (s *service) GetConsignments(ctx context.Context, req *pb.GetRequest) (*pb.Response, error)  {
 	allConsignments := s.repo.GetAll()
 	resp := &pb.Response{
@@ -77,8 +77,8 @@ func main()  {
 	server := grpc.NewServer()
 	repo := Repository{}
 
-	//向rpc服务器注册微服务
-	//此时会把我们实现的微服务service与协议中的ShippingServiceServer绑定
+	// 向rpc服务器注册微服务
+	// 此时会把我们实现的微服务service与协议中的ShippingServiceServer绑定
 	pb.RegisterShippingServiceServer(server,&service{repo:repo})
 
 	if err := server.Serve(listener); err != nil{
